@@ -47,3 +47,5 @@ app.get("/getdata", function (req, res) {
     });
   });
 });
+
+// TODO: Add a GET route to pull the scraped information from the database
