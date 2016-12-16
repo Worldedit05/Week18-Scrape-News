@@ -1,8 +1,11 @@
-var express    = require('express');
-var bodyParser = require('body-parser');
-var mongoose   = require('mongoose');
-var request    = require('request');
-var cheerio    = require('cheerio');
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var mongoose    = require('mongoose');
+var request     = require('request');
+var cheerio     = require('cheerio');
+// Mongoose Models
+var Picture     = require('./models/Picture.js');
+var UserComment = require('./models/UserComment.js');
 
 mongoose.Promise = Promise;
 
@@ -37,15 +40,34 @@ app.get("/getdata", function (req, res) {
   request("https://www.reddit.com/r/spaceporn/", function(error, response, html) {
     var $ = cheerio.load(html);
 
-    $("div a").each(function(i, element) {
+    $(".thing").each(function(i, element) {
 
       var result = {};
 
-      result.img = $(this).children("img").attr("src");
+      result.title = $(this).attr("data-fullname");
+      result.img = $(this).children("a").attr("href");
 
-      // TODO: take the results and added them to mongodb with mongoose
+      console.log(result);
+
+      var entry = new Picture(result);
+
+      entry.save(function (err, doc) {
+        if (err) {
+          console.log(err);
+        }
+
+        else {
+          console.log(doc);
+        }
+      });
+
     });
   });
+  res.send("New Pictures Gathered!");
 });
 
 // TODO: Add a GET route to pull the scraped information from the database
+
+app.listen(3000, function() {
+  console.log("App is listening on port 3000");
+});

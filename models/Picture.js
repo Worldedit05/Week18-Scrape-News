@@ -11,14 +11,14 @@ var PictureSchema = new Schema({
     type: String,
     required: true
   },
-  link: {
+  img: {
     type: String,
     required: true
   },
 
   comment: {
     type: Schema.Types.ObjectId,
-    ref: "Comment"
+    ref: "UserComment"
   }
 });
 
