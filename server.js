@@ -67,7 +67,31 @@ app.get("/getdata", function (req, res) {
   res.send("New Pictures Gathered!");
 });
 
-// TODO: Add a GET route to pull the scraped information from the database
+app.get("/pictures", function (req, res) {
+
+  Picture.find({}, function (error, doc) {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      res.json(doc);
+    }
+  });
+});
+
+app.get("/pictures/:id", function(req, res) {
+
+  Picture.findOne({ "_id": req.params.id })
+  .populate("note")
+  .exec(function (error, doc) {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      res.json(doc);
+    }
+  });
+});
 
 app.listen(3000, function() {
   console.log("App is listening on port 3000");
