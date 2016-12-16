@@ -49,13 +49,14 @@ app.get("/getdata", function (req, res) {
 
       console.log(result);
 
-      var entry = new Picture(result);
+      var query = { title: result.title };
+      var update = { $inc: { pullCount: 1 }, img: result.img };
+      var options = { upsert: true, new: true };
 
-      entry.save(function (err, doc) {
-        if (err) {
-          console.log(err);
+      Picture.findOneAndUpdate(query, update, options, function (error, doc) {
+        if (error) {
+          console.log(error);
         }
-
         else {
           console.log(doc);
         }
