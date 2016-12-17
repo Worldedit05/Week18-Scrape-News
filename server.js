@@ -45,12 +45,13 @@ app.get("/getdata", function (req, res) {
       var result = {};
 
       result.title = $(this).attr("data-fullname");
+      result.name = $(this).find("a.title").text();
       result.img = $(this).children("a").attr("href");
 
-      console.log(result);
+      console.log(result.name);
 
       var query = { title: result.title };
-      var update = { $inc: { pullCount: 1 }, img: result.img };
+      var update = { $inc: { pullCount: 1 }, name: result.name, img: result.img };
       var options = { upsert: true, new: true };
 
       Picture.findOneAndUpdate(query, update, options, function (error, doc) {
