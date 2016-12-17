@@ -93,6 +93,30 @@ app.get("/pictures/:id", function(req, res) {
   });
 });
 
+app.post("/pictures/:id", function(req, res) {
+
+  var newComment = new UserComment(req.body);
+
+  newComment.save(function(error, doc) {
+
+    if (error) {
+      console.log(error);
+    }
+    else {
+
+      Picture.findOneAndUpdate({ "_id": req.params.id }, { "usercomments": doc._id })
+      .exec(function (error, doc) {
+        if (error) {
+          console.log(error);
+        }
+        else {
+          res.send(doc);
+        }
+      });
+    }
+  });
+});
+
 app.listen(3000, function() {
   console.log("App is listening on port 3000");
 });
