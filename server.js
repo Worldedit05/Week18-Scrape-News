@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 
 // Setup database with mongoose
-mongoose.connect("mongodb://localhost/week18homework");
+mongoose.connect("mongodb://heroku_d9pxq0zp:qbqvn5dfbocdprho6g8glu3je3@ds033066.mlab.com:33066/heroku_d9pxq0zp");
 
 var db = mongoose.connection;
 
