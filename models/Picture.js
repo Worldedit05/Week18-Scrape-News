@@ -23,9 +23,9 @@ var PictureSchema = new Schema({
     type: Number,
     default: 0
   },
-  comment: {
+  note: {
     type: Schema.Types.ObjectId,
-    ref: "UserComment"
+    ref: "Note"
   }
 });
 
