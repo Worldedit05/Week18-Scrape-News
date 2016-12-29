@@ -23,7 +23,7 @@ $( document ).ready(function(){
 
       var validImg = data[key].img;
 
-      if ( validImg.substring(0,4) !== 'http' || validImg.includes("imgur.com/gallery")) {
+      if ( validImg.substring(0,4) !== 'http' || validImg.includes("imgur.com/gallery") || validImg.includes("flickr.com/photos") ) {
         console.log("Not valid");
       }
       else {
