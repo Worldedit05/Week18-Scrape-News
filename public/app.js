@@ -23,11 +23,14 @@ $( document ).ready(function(){
 
       var validImg = data[key].img;
 
-      if ( validImg.substring(0,4) !== 'http' || validImg.includes("imgur.com/gallery") || validImg.includes("flickr.com/photos") || !validImg.endsWith(".jpg") || !validImg.endsWith(".png") || !validImg.endsWith(".jpeg") ) {
+      if ( validImg.substring(0,4) !== 'http' || validImg.includes("imgur.com/gallery") || validImg.includes("flickr.com/photos") ) {
         console.log("Not valid");
       }
-      else {
+      else if ( validImg.endsWith(".jpg") || validImg.endsWith(".png") || validImg.endsWith(".jpeg") ) {
         $('#pictures').prepend('<div class="row"><div class="col s12 m12"><div class="card blue-grey darken-1"><div class="card-image"><a href="#modal1"><img data-id=' + data[key]._id + ' src="'+ data[key].img +'" class="responsive-img" alt=""></a></div></div></div></div>');
+      }
+      else {
+        console.log("Error");
       }
     }
   });
